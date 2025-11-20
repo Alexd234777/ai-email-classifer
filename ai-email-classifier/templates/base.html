@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8" />
+    <title>{{ title or "Tone Classifier" }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script defer src="{{ url_for('static', filename='app.js') }}"></script>
+</head>
+
+<body>
+<div class="layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <h2 class="sidebar-title">Tone Classifier</h2>
+
+        <a href="{{ url_for('index') }}"
+           class="nav-link {% if title == 'Analyze Email' %}active{% endif %}">
+            Analyze
+        </a>
+
+        <a href="{{ url_for('history_view') }}"
+           class="nav-link {% if title == 'History' %}active{% endif %}">
+            History
+        </a>
+
+        <button id="themeToggle" class="theme-btn">Toggle Theme</button>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <div class="content">
+        <div class="topbar">
+            <h1>{{ title }}</h1>
+        </div>
+
+        <div class="page-content">
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+</div>
+</body>
+</html>
+
+
+
+
+
