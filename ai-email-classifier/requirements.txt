@@ -1,0 +1,10 @@
+flask
+torch
+transformers
+numpy
+reportlab
+waitress
+
+
+
+

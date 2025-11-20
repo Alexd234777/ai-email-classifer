@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="card">
+    <h2>Enter Email or Message</h2>
+    <p class="subtitle">The system detects Aggressive, Neutral, Polite, and Friendly tone.</p>
+
+    <form method="POST">
+        <textarea name="email_text" placeholder="Type or paste text here..." required>{{ email_text or "" }}</textarea>
+        <button type="submit">Analyze Tone</button>
+    </form>
+</div>
+
+{% if result %}
+<div class="card result-card {{ result.label|lower }}">
+    <h2>Prediction: {{ result.label }}</h2>
+
+    <div class="severity-bar">
+        <div class="severity-fill" style="width: {{ result.severity }}%;"></div>
+    </div>
+
+    <div class="score-boxes">
+        <div class="score-item">Confidence: {{ result.confidence }}%</div>
+        <div class="score-item">Threat: {{ result.threat_score }}</div>
+        <div class="score-item">Politeness: {{ result.politeness_score }}</div>
+        <div class="score-item">Friendly: {{ result.friendly_score }}</div>
+    </div>
+
+    <!-- FLAGS -->
+    <div class="flag-section">
+        {% if result.has_threat %}
+            <span class="flag red">Threat</span>
+        {% endif %}
+        {% if result.has_profanity %}
+            <span class="flag red">Profanity</span>
+        {% endif %}
+        {% if result.has_sarcasm %}
+            <span class="flag orange">Sarcasm</span>
+        {% endif %}
+    </div>
+
+    <!-- EXPLANATION -->
+    <h3>Why this label?</h3>
+    <ul class="explanation-list">
+        {% for line in result.explanation %}
+            <li>{{ line }}</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+
+{% endblock %}
+
+
+
+
+
+
+
